@@ -1,21 +1,42 @@
+'''This assignement was done by me (shirwac), but whenever I have encoutred errors that i could not debug,
+   I have used ChatGPT to help me debug and fix the errors. I have learned a lot from this process, and I am grateful for the assistance.
+   I have also used ChatGPT to do docstrings for me, since I have used JSdocs from JavaScript before, and I wanted to learn how to do it in Python.
+ '''
 import random
 import string
 
 def get_password_length():
-    """Prompt the user until they provide a valid password length (8–16)."""
+    """
+    Prompt the user until they provide a valid password length (8-16).
+
+    @returns {int} A valid password length between 8 and 16.
+    """
     while True:
-        user_input = input("Enter desired password length (8–16): ")
+        user_input = input("Enter the desired password length (8-16): ")
         if not user_input.isdigit():
-            print("❌ Invalid input! Please enter a number.")
+            print("Error: Please enter a valid number.")
             continue
         length = int(user_input)
         if 8 <= length <= 16:
             return length
         else:
-            print("❌ Password length must be between 8 and 16.")
+            print("Error: Password length must be between 8 and 16 characters.")
+
 
 def generate_password(length):
-    """Generate a random secure password that meets given requirements."""
+    """
+    Generate a random secure password that meets the requirements.
+
+    Requirements:
+    - At least one lowercase letter
+    - At least one uppercase letter
+    - At least one digit
+    - At least one special character
+    - Cannot begin with a digit or special character
+
+    @param {int} length - Desired password length (8–16).
+    @returns {str} A randomly generated secure password.
+    """
     lowercase = string.ascii_lowercase
     uppercase = string.ascii_uppercase
     digits = string.digits
@@ -39,7 +60,6 @@ def generate_password(length):
 
     # Ensure the first character is not a digit or special char
     if password_chars[0] in digits + special_chars:
-        # Swap with a guaranteed letter
         for i in range(1, len(password_chars)):
             if password_chars[i] in lowercase + uppercase:
                 password_chars[0], password_chars[i] = password_chars[i], password_chars[0]
@@ -47,10 +67,20 @@ def generate_password(length):
 
     return "".join(password_chars)
 
+
 def main():
+    """
+    Main program flow:
+    1. Prompt for password length
+    2. Generate a secure password
+    3. Display the result
+
+    @returns {None}
+    """
     length = get_password_length()
     password = generate_password(length)
-    print("\n✅ Generated Password:", password)
+    print("Generated password:", password)
+
 
 if __name__ == "__main__":
     main()
